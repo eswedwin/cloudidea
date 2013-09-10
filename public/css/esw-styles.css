@@ -86,14 +86,13 @@ p {
   padding: 2% 0%;
 }
 .actions {
-  background-color: #343434;
+  background-color: #245824;
   padding: 3% 0%;
 }
 .video, .thermometer, .order, .social, .statistics {
   text-align: center;
 }
 .statistics h3, .statistics p {
-  background-color: #245824;
   color: white;
 }
 .statistics p .currency {
@@ -125,6 +124,6 @@ p {
 
 /* http://support.addthis.com/customer/portal/questions/1136093-share-buttons-in-center-position */      
 div.addthis_toolbox {
-width: 174px;
+width: 90%;
 margin: 0 auto;
 }
