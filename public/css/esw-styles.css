@@ -57,8 +57,9 @@
   Also use slightly lighter subheading (Ubuntu 300 vs. 400)
 */
 body{
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  font-weight: 300; 
+  font-family: 'Arvo', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  background-color: rgb(200, 255, 200); 
 }
 .heading, .subheading {
   font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
@@ -92,6 +93,7 @@ p {
   text-align: center;
 }
 .statistics h3, .statistics p {
+  background-color: #245824;
   color: white;
 }
 .statistics p .currency {
@@ -108,6 +110,7 @@ p {
 }
 .asset {
   padding: 2.5% 0%;
+  background-color: rgb(200, 255, 200);
 }
 .footer {
   color: #cccccc;
