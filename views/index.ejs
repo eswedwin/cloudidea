@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><%= TITLE %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"/>
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css"/>
+    <link rel="stylesheet" href="css/esw-styles.css">
+    <link rel="icon" type="image/gif" href="http://esw4.co.za/static/favicon.gif"/>
+    
+  <!--link rel="icon" type="image/gif" href="static/favicon.gif"/-->
+    <!--link href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic" rel="stylesheet" type="text/css"/>
+    <!--link href="http://fonts.googleapis.com/css?family=Arvo:300italic,400italic,500italic,700italic,300,400,500,700,800" rel="stylesheet" type="text/css"/>
+    <!--prev font here was Open+Sans-->
+  <!-- from google
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script-->
+    <script src="js/angular.min.js" ></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/google-analytics.js"></script>
+    <script src="https://coinbase.com/assets/button.js"></script>
+    <script src="js/coinbase-post-payment.js"></script>
+  </head>
+  <body>
+  <!-- Mobile-friendly navbar adapted from example. -->
+    <!-- http://twitter.github.io/bootstrap/examples/starter-template.html -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#"><%= APP_NAME %></a>
+          <div class="nav-collapse collapse">
+            <ul class ="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#model">Model</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="/orders">Orders</a></li>  <!--watch icon-bar above = same number-->
+            </ul>
+          </div> <!--/.nav-collapse-->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row-fluid heading">
+        <div class="span12">
+          <h1><%= PRODUCT_NAME %></h1>
+        </div>
+      </div> 
+      <div class="row-fluid subheading">
+        <div class="span12">
+          <p class="lead"><%= PRODUCT_SHORT_DESCRIPTION %></p>
+        </div>
+      </div>
+      <div class="row-fluid pitch">
+        <div class="span5 offset1 video">
+          <video id ="pitch" poster = "http://www.gravatar.com/avatar/4e70e7166c8a7eeceb4a4af8da029aea.jpg?s=300" width = "480" height = "300">
+            <source type ="video/webm" src="http://esw4.co.za/static/pitch_test_e.webm">
+            <source type ="video/mp4" src="http://esw4.co.za/static/pitch_test_e.mp4">
+          </video>
+          <script>
+            var v = document.getElementById("pitch");
+            v.onclick = function() {
+              if (v.paused) {
+                v.play();
+              } else {
+                v.pause();
+              }
+            };
+          </script>
+        <h4>Click picture to see introduction<h4>
+        </div>
+        <div class="span5 actions" ng-controller="OrdersCtrl">
+          <div class="row-fluid">
+            <div class="span8 offset2">
+              <div class="row-fluid statistics">
+                <div ng-show="!error">
+                  <div class="span4">
+                    <div class="linediv-l">
+                      <h3>{{num_orders}}</h3>
+                      <p>backers</p>
+                    </div>
+                  </div>
+                  <div class="span4">
+                    <div class="linediv-c">
+                      <h3>{{total_funded}}</h3>
+                      <p>of {{target}} <span class="currency">{{unit_symbol}}</span></p>
+                    </div>
+                  </div>
+                  <div class="span4">
+                    <div class="linediv-r">
+                      <h3>{{days_left}}</h3>
+                      <p>days left</p>
+                    </div>
+                  </div>
+                </div>
+                <div ng-show="error">
+                  <h3>{{error}}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="row-fluid" ng-show="!error">
+              <div class="row-fluid">
+                <div class="span10 offset1">    <!-- progress bar --><!-- http://twitter.github.io/bootstrap/components.html#progress -->
+                  <div class ="thermometer progress active">
+                    <div class="bar bar-success" ng-style="{'width': percentage_funded+'%'}"></div>
+                    <div class="bar bar-warning" ng-style="{'width': 100 - percentage_funded+'%'}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row-fluid">
+                <div class="span6 offset3 order">  <!-- button -->
+                  <!--button class="btn-success btn-large">Preorder</button-->
+                  <a class="coinbase-button" data-code="<%= coinbase_preorder_data_code %>" 
+                    data-button-style="custom_large" data-button-text="Preorder with Bitcoin" data-custom="Finished order" 
+                    href="https://coinbase.com/checkouts/<%= coinbase_preorder_data_code %>">Preorder With Bitcoin</a>
+                  <script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
+                </div>
+              </div>
+              <div class="row-fluid">
+                <div class="span9 offset3 social">  <!-- button -->
+                  <!-- AddThis Button BEGIN -->
+                  <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                  <a class="addthis_button_tweet" tw:via="<%= twitter_username %>" tw:text="<%= twitter_tweet %>"></a>
+                  <a class="addthis_button_preferred_1"></a>
+                  <!--a class="addthis_button_preferred_2"></a-->
+                  <a class="addthis_button_compact"></a>
+                  <a class="addthis_counter addthis_bubble_style"></a>
+                  </div>
+                  <!--script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script-->
+                  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520032ff4f50a44a"></script>
+                  <!-- AddThis Button END -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="span5">
+          <div class="row-fluid">
+            <h4></h4> <!--some empty space-->
+          </div>
+          <div class="row-fluid">
+            <h4></h4>
+          </div>
+          <div class="row-fluid">
+            <h3>Power = Energy = Electricity</h3>
+          </div>
+        </div>
+      </div>
+      <!-- https://developer.mozilla.org/en-US/docs/Web/CSS/text-align -->
+      <!-- http://twitter.github.io/bootstrap/base-css.html#images -->
+      <!-- http://placehold.it -->
+
+      <div class="row-fluid section1">    <!--marketing-->
+        <div class="span5 offset1 asset">
+          <!--<img class="img-polaroid" src="http://placehold.it/480x300"-->
+          <img class="img-polaroid" src = "http://esw4.co.za/static/cloudpowergreenenergy.gif" alt = "Green Energy in cloud" width = "480" height = "300" >
+          <!--img class="img-polaroid" src = "static/cloudpowergreenenergy.gif" alt = "Green Energy in cloud" width = "480" height = "300" >
+          local-->
+          <figcaption>Cloud Power Green Energy</figcaption>
+        </div>
+        <div class= "span5 copy">
+          <p> <!-- Marketing Section 1 -->
+          Real money direct into the electricity user's email inbox for doing &quot;Nothing&quot;.
+          This statement is not completely true, but by being a Power Company's insurer of last resort can be very profitable. 
+          Some power, automatically switched off at the Electricity Customer's premises, is sold back to the Power Companies during a crisis or daily peak demand.  
+          This has great value when priced at the marginal cost of generating it or the cost of outages (non-voluntary load shedding). 
+          The Power Companies do not have this power available on such short notice and/or they use very expensive methods to generate it.
+          This virtual power sold back to the suppliers, ensures grid stability, and thus critical systems and lights stay on.
+          It becomes vital with tidal-, solar voltaic- or wind-generators, to compensate for sudden changes in the supply and grid overload conditions.
+          The above is &quot;real&quot; grid capacity that will never need building and is therefore the greenest power around.
+          The Power Companies will lease this capacity/insurance (initially for 3 years) to be used at their discretion (with fixed limits to manage potential monopolistic abuse.).
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid section2">
+        <div class="span5 offset1 copy copy-right">
+          <p>
+          This model is different from the smart-grid systems (smart-meter and other Virtual Power Stations) in that the client immediately receives something 
+          substantial back for the inconvenience of waiting a bit or being slightly away from the optimal temperature. 
+          With smart-grid systems all the money stays with the Power Companies and all the inconvenience stays with the much smaller client; a very monopolistic relation.  
+          Other historical penalties like maximum demand charges, time of use - and/or dynamic tariffs, have had limited success, resulting mostly in higher energy prices.
+          It is very difficult for a Power Company's clients to understand, monitor and control energy consumption as a highly educated person is needed to understand the implications, accounts and tariffs. (? by design)
+          With Cloud Power no customer intervention is required, the inconvenience is very limited and all transactions are very transparent and real-time.
+          </p>
+        </div>
+        <div class="span5 asset">
+          <img class="img-polaroid" src="http://esw4.co.za/static/cloud_connect.gif" alt = "Energy flow and Cloud connections" style="border:0px; background-color: rgb(200, 255, 200)">
+          <figcaption>Cloud connections schematic</figcaption>
+        </div>
+      </div>
+      <div class="row-fluid section3">
+        <div class="span5 offset1 asset">
+          <img class="img-polaroid" src="http://esw4.co.za/static/cloud_customers.jpg"  alt = "Cloud Power Customer">
+          <figcaption>Potential Cloud Power Customers</figcaption>
+        </div>
+        <div class="span5 copy">
+          <p> <!-- trageting -->
+          Commercial buildings consume between 10% and 20% of a country's electricity and most of this energy use is not directly linked to production. 
+          The Cloud Power Green Energy model targets HVAC systems in these buildings because they use up to 60% of the building's electrical energy and already have centralised control systems.
+          These systems are always on to maintain the internal environment and will allow fast partial switch-off, for a limited time, with low adverse effects.
+          The buildings inherently have some buffer capacity (thermodynamics) and the temperatures recover fast after HVAC systems are switched back to full capacity. 
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid section4">
+        <div class="span5 offset1 copy copy-right">
+          <h4>Future:</h4>
+          <p>
+          The potential market could grow to between 2% and 5% of any country's maximum demand and this would be real extra generation margin on the supply.
+          Cloud Power has no capital expenditure implications for the Power Companies and the insurance premium is much lower than the cost of same sized power stations.  
+          There is a good scope for governments to subsidise the feed-in tariffs and/or equipment cost, expanding the market exponentially to smaller users.  
+          Design smaller and more economical equipment for the smaller customers with special attention to cost effective installation and maintenance.
+          The installation cost does not scale well with more clients but this could be reduced by making equipment for self-installation. 
+          </p>
+        </div>
+        <div class="span5 asset">
+          <img class="img-polaroid" src="http://esw4.co.za/static/power_balance.gif"  alt = "Power Balance" style="border:0px; background-color: rgb(200, 255, 200)">
+          <figcaption>Power Balance</figcaption>
+        </div>
+      </div>
+      <div id="model" class="row-fluid section5">
+        <div class="span5 offset1 asset">
+          <img class="img-polaroid" src="http://esw4.co.za/static/cloud_capacity.gif"  alt = "Cloud Capacity" style="border:0px; background-color: rgb(200, 255, 200)">
+          <figcaption>Initial qualification</figcaption>
+        </div>
+        <div class="span5 copy">
+          <h4>Who qualifies?</h4>
+          <p> <!-- Marketing Section 2 technical -->
+          The Cloud Power Green Energy system model: Receive cash while helping save the earth.
+          This model will initially only be applicable to electricity consumers that have a maximum demand of more than 2MVA and can shed 500kVA of that immediately.   
+          Cloud Power can pay an estimated 6% of a customer's electricity bill when the system is fully utilised and about 2% when just on standby/insurance duty.   
+          After the online application being accepted, our engineers will visit the customer's site to do a survey of the applicability of our system to their requirement and vice-versa. 
+          Our equipment will be installed, hooked up to a customer's systems and maintained on their premises by our installation technicians.
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid section6">
+        <div class="span5 offset1 copy copy-right">
+          <p>          
+          The customer will be responsible for a WAN connection to our equipment and any modifications to their equipment to facilitate the automatic shedding. 
+          A fail-safe system design will ensure normal operation of your premises in case of any failures in our system. 
+          A backup link will use the cellular and/or satellite networks to ensure communications reliability.
+          Total real-time status of a customer's system, predictions and financial information will be available from Cloud Power's servers at all times. 
+          An optional advertisement board will show a subset of the above information in public areas as confirmation of customer's contribution to green causes.  
+          Only the highest encryption standards will be used to ensure tamper-proof equipment, communications and safety of customer data.
+          To ensure integrity of the system, the equipment and installation will be tamper proof and self erasing on intrusion or tampering with sensors.
+          </p>
+        </div>
+        <div class="span5 asset">
+          <img class="img-polaroid" src="http://esw4.co.za/static/CP_physical_connection.gif" alt = "Physical connections schematic" style = "background-color:rgb(200, 255, 200); border:0px">
+          <!--img class="img-polaroid" src = "static/GREENPOWER.png" alt = "Power Station in cloud" width = "480" height = "300" -->
+          <figcaption>Physical connections schematic</figcaption>
+        </div>
+      </div>
+      <div class="row-fluid section7">
+        <div class="span5 offset1 asset">
+          <img class="img-polaroid" src="https://en.bitcoin.it/w/images/en/5/50/Bitcoin.png" alt = "Bitcoin transfers" width = "300" height = "300" style = "background-color:rgb(200, 255, 200); border:0px">
+          <!--img class="img-polaroid" style = "background-color:#AAF8AA; border:0px" src="static/Bitcoin.png"  alt = "Bitcoin transfers" width = "300" height = "300"-->
+          <figcaption>Bitcoin transfers</figcaption>
+        </div>
+        <div class="span5 copy">
+          <!-- Marketing Section 4 more techinical -->
+          <h4>Customer payments:</h4>
+          <p>
+          The payments start immediately when our system comes online and could be 1% to 2% of your electricity bill while it is just on standby. 
+          This increases to between five and eight percent of the bill if all available electricity is sold, thus when an estimated 25% of your maximum demand is shed during peak periods. 
+          The equipment monitors the total and switched load on your premises continuously and determines the energy switched off in a transparent way. 
+          The maximum switch off period is limited to two hours in any 12-hour period with a maximum of four shed periods, of at least half hour each, in the same period.
+          All the financial transactions use Bitcoin thus there are very low transaction fees and balances will be settled daily.
+          A supply/insurance contract between the electricity customer and us will be set up for an initial 3-year period.
+          </p>
+        </div>
+      </div>
+      <div class="row-fluid section8">
+        <div class="span5 offset1 copy copy-right">
+          <!-- Marketing Section 3 Suppliers -->
+          <h4>Power Companies:</h4>
+          <p>
+          During a crisis (line trip, line overload, generator failure, etc.) the cloud power station comes online instantaneous (less than five seconds) 
+          and then keeps on generating for up to 2 hours. 
+          Our servers will continuously update the available capacity per region to the dispatchers, who can then give selective and partial shed commands.  
+          The Power Companies pay an insurance premium of less than two percent per year of the cost of a similar sized new generation plant. 
+          Initial supply contracts will be for a period of three years to cover the installation and modifications costs. 
+          The price for the energy will be comparable to the marginal cost for peaking-Power Stations. 
+          The Power Companies recover some of the money by reselling the power to customers after the crisis or peak, at a lower rate. (All envisaged loads are recoverable loads.)  
+          Geo-location will be used to quickly alleviate overload conditions in regions of the grid.  
+          </p>
+        </div>
+        <div class="span5 asset">
+          <img class="img-polaroid" src="http://esw4.co.za/static/powerplant5.jpg" alt = "Coal Power Station">
+          <figcaption>Filthy power: We need less of this.</figcaption>
+        </div>
+      </div>
+      <div class="row-fluid faq">
+        <div class="span10 offset1">
+          <h3 id="faq">FAQ</h3>
+          <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseZero">
+                  What is Bitcoin?
+                </a>
+              </div>
+              <div id="collapseZero" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  Internet currency (an encrypted series of numbers) that exists solely on the internet to enable trade with very little costs.  
+                  It is stored in a Bitcoin wallet on your computer (with backup of the codes on your USB drive) and can be transferred to anyone, anywhere, instantaneous over the net. 
+                  There are physical exchanges where it can easily be exchanged to most currencies.  
+                  Example:  In this scenario the Power Company buys Bitcoin with physical currency and pays this out over time for the standby function, insurance and energy bought.  
+                  Cloud Power receives this daily and immediately pass most of it on to our client generators.  
+                  The clients can then partial pay their electricity accounts with Bitcoin, completing the circle in a very transparent and market oriented way.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  What does BMS and HVAC stand for?
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  Building Management System (also SCADA; Supervisory Control And Data Acquisition) and Heating Ventilation and Air-Conditioning.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                  Why is this model so green?
+                </a>
+              </div>
+              <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  This type of system is grid stabilizing because of its nearly instantaneous response to any request for extra energy. 
+                  The Power Companies need less generators on standby/idle to continuous supply the demand and less generating plant need to be build and/or only the cleanest type of generator run.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                  Why must the grid supply exactly match the demand?
+                </a>
+              </div>
+              <div id="collapseThree" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  The energy generated in the grid (network) must exactly balance the sum of the energy losses and demand as energy cannot be destroyed or created, it just changes from one form to another. 
+                  If the generated energy is higher, the generators all speed up causing the frequency and voltage of the grid to increase. 
+                  When it is lower the frequency and voltage decreases as the generators cannot keep up and thus slow down. 
+                  As all electric motors run at, or nearly at, the same frequency they also speed up or slow down causing the demand to decrease or increase.
+                  The runaway condition that ensues is the grid instability. 
+                  The Power Companies mitigate this by disconnecting some generating capacity or some demand respectively from the grid, both undesired and expensive.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                  What is a Virtual Power Station?
+                </a>
+              </div>
+              <div id="collapseFour" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  Combination of many small suppliers in one pool such that it can be monitored and controlled as easily as current Power Stations.
+                  Instead of generating more power on the grid, the same effect on grid stability can be attained by trimming the demand. 
+                  Thus &quot;negative demand&quot; is exactly the same as &quot;positive supply&quot; to balance the &quot;supply = demand&quot; equation.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+                  What is in it for the electricity customer and Cloud Power Green Energy?
+                </a>
+              </div>
+              <div id="collapseFive" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  Our interest is in facilitating the instantaneous trades though the internet and making electricity more environment friendly.
+                  About 75% of what the Power Company pays goes directly to the customer with the remainder used to maintain and pay, the equipment and staff.
+                  These trades start to get real traction when the available power pool grows to the order of 100MW to 300MW (one medium-sized base load generator). 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid contact">
+        <div class="span10 offset1">
+          <address id="contact">
+            <h4>Contact:</h4>
+            <a href="mailto:eswedwin@gmail.com">Edwin van de Wiel: Email me.</a>
+          </address>
+        </div>
+      </div>
+      <div class="row-fluid footer">
+        <div class="span12">
+          <p> This work is licensed under the
+            <a href="http://creativecommons.org/licenses/by-sa/3.0/"><strong>cc BY-SA 3.0</strong></a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <script type="text/javascript">
+
+     // Add a script element as a child of the body
+     function downloadJSAtOnload() {
+      var element = document.createElement("script");
+      element.src = ["https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js",
+              "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"];
+      // "deferredfunctions.js";
+     document.body.appendChild(element);
+     }
+
+     // Check for browser support of event handling capability
+     if (window.addEventListener)
+      window.addEventListener("load", downloadJSAtOnload, false);
+     else if (window.attachEvent)
+      window.attachEvent("onload", downloadJSAtOnload);
+     else window.onload = downloadJSAtOnload;
+
+  </script>
+
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-42975095-1', 'Cloud Power'); /* not needed will use page address, 'herokuapp.com'); */
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
