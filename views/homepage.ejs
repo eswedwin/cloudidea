@@ -16,8 +16,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
-    <script src="js/angular.min.js"></script-->
-    <script src="js/controllers.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/controllers.js"></script-->
     <!--script src="js/google-analytics.js"></script-->
     <script src="https://coinbase.com/assets/button.js"></script>
     <!--script src="js/coinbase-post-payment.js"></script-->
@@ -418,11 +418,14 @@
 	  element3.src = "js/angular.min.js";
       document.body.appendChild(element3);
       var element4 = document.createElement("script");
-	  element4.src = "js/google-analytics.js";
+      element4.src = "js/controllers.js";
       document.body.appendChild(element4);
-      var element5 = document.createElement("script");
-	  element5.src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520032ff4f50a44a";
+	  var element5 = document.createElement("script");
+	  element5.src = "js/google-analytics.js";
       document.body.appendChild(element5);
+      var element6 = document.createElement("script");
+	  element6.src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520032ff4f50a44a";
+      document.body.appendChild(element6);
 
       //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       //(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
