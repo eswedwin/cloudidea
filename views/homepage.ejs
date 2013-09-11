@@ -408,12 +408,12 @@
 
     // Add a script element as a child of the body
     function downloadJSAtOnload() {
-      var element1 = document.createElement("script");
-      element1.src = "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js";      // "deferredfunctions.js";
-      document.body.appendChild(element1);
       var element2 = document.createElement("script");
       element2.src = "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js";
       document.body.appendChild(element2);
+      var element1 = document.createElement("script");
+      element1.src = "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js";      // "deferredfunctions.js";
+      document.body.appendChild(element1);
       var element3 = document.createElement("script");
 	  element3.src = "js/angular.min.js";
       document.body.appendChild(element3);
