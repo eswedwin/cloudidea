@@ -111,6 +111,10 @@ p {
   padding: 2.5% 0%;
   background-color: rgb(200, 255, 200);
 }
+.img-polaroid {
+  border:0px;
+  background-color: rgb(200, 255, 200);
+}
 .footer {
   color: #cccccc;
   text-align: center;
