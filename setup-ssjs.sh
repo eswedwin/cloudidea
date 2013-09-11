@@ -19,6 +19,12 @@ heroku plugins:install git://github.com/ddollar/heroku-config.git --app eswedwin
 heroku addons:add heroku-postgresql:dev --app eswedwin-bitstarter-mooc
 heroku pg:promote `heroku config  --app eswedwin-bitstarter-mooc | grep HEROKU_POSTGRESQL | cut -f1 -d':'` --app eswedwin-bitstarter-mooc
 heroku plugins:install git://github.com/ddollar/heroku-config.git --app eswedwin-bitstarter-mooc
+#cloud
+heroku addons:add heroku-postgresql:dev --app cloudpowergreenenergy
+heroku pg:promote `heroku config  --app cloudpowergreenenergy | grep HEROKU_POSTGRESQL | cut -f1 -d':'` --app cloudpowergreenenergy
+heroku plugins:install git://github.com/ddollar/heroku-config.git --app cloudpowergreenenergy
+#after update .env[.dummy] and cp
+#heroku config:push --app cloudpowergreenenergy
 
 # Set up heroku configuration variables
 # https://devcenter.heroku.com/articles/config-vars
@@ -41,6 +47,7 @@ app to talk to.\n\n   Now do the following:\n\n
 4) To deploy to heroku\n
 heroku config:push --app eswedwin-bitstarter-s-mooc
 heroku config:push --app eswedwin-bitstarter-mooc
+heroku config:push --app cloudpowergreenenergy
    Try placing some orders and then clicking '/orders' at the top.\n
 EOF
 )
