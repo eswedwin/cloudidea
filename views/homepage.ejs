@@ -22,9 +22,6 @@
     <!--script src="js/google-analytics.js"></script-->
     <!--script src="https://coinbase.com/assets/button.js"></script-->
     <!--script src="js/coinbase-post-payment.js"></script-->
-	<script>
-      var {{error}} ="";
-	</script> 
   </head>
   <body>
   <!-- Mobile-friendly navbar adapted from example. -->
@@ -106,7 +103,7 @@
                   </div>
                 </div>
                 <div ng-show="error">
-                  <h3>{{error}}</h3>
+                  <h5>{{error}}</h5>
                 </div>
               </div>
             </div>
@@ -453,6 +450,11 @@
     else window.onload = downloadJSAtOnload;
 
   </script>
+   <div ng-controller="OrdersCtrl">
+	<div ng-show="error">
+	  <h6>{{error}}</h6>
+	</div>
+  </div>
 
   </body>
 </html>

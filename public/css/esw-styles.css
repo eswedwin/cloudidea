@@ -54,7 +54,7 @@
   Use slightly lighter body font (Open Sans 300 rather than 400): 
   https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight 
 
-  Also use slightly lighter subheading (Ubuntu 300 vs. 400)
+  Also use slightly lighter subheading (arvo 300 vs. ubuntu 400)
 */
 body{
   font-family: 'Arvo', Helvetica, Arial, sans-serif;
