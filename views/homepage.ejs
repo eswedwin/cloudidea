@@ -109,7 +109,7 @@
             </div>
             <div class="row-fluid" ng-show="!error">
               <div class="row-fluid">
-                <div class="span10 offset1">    <!-- progress bar --><!-- http://twitter.github.io/bootstrap/components.html#progress -->
+                <div class="span8 offset2">    <!-- progress bar --><!-- http://twitter.github.io/bootstrap/components.html#progress -->
                   <div class ="thermometer progress active">
                     <div class="bar bar-success" ng-style="{'width': percentage_funded+'%'}"></div>
                     <div class="bar bar-warning" ng-style="{'width': 100 - percentage_funded+'%'}"></div>
@@ -118,14 +118,14 @@
               </div>
               <div class="row-fluid">
 			    <div class="span10 offset1">
-                <div class="order">  <!-- coinbase button -->
+                <div class="span8 order">  <!-- coinbase button -->
                   <!-- button class="btn-success btn-large">Preorder</button-->
                   <a class="coinbase-button" data-code="<%= coinbase_preorder_data_code %>" 
                     data-button-style="custom_large" data-button-text="Preorder with Bitcoin" data-custom="Finished order" 
                     href="https://coinbase.com/checkouts/<%= coinbase_preorder_data_code %>">Preorder With Bitcoin</a>
                   <!-- script src="https://coinbase.com/assets/button.js" type="text/javascript"></script-->
                 </div>
-                <div class="twitter">  <!-- predefined twitter -->
+                <div class="span4 twitter">  <!-- predefined twitter -->
                   <p style="font-size:60%"></p><br>
                   <a class="addthis_button_tweet" tw:via="<%= twitter_username %>" tw:text="<%= twitter_tweet %>"></a>
                 </div>
