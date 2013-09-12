@@ -91,11 +91,14 @@ p {
 .actions {
   background-color: #245824;
   padding: 3% 0%;
-@media (min-width: 980px) {
-  height: 288px; }
-@media (max-width: 480px) {
-  height: 576px; }
 }
+
+@media (min-width: 980px) .actions {
+  height: 288px; }
+
+@media (max-width: 480px) .actions {
+  height: 576px; }
+
 .video, .thermometer, .order, .twitter, .social, .statistics {
   text-align: center;
 }
