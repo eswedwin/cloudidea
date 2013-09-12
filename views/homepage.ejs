@@ -415,7 +415,7 @@
 	  "js/controllers.js", "js/angular.min.js", "js/google-analytics.js",
 	  "https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520032ff4f50a44a",
 	  "https://coinbase.com/assets/button.js"];
-	  load_files.forEach(file) {
+	  load_files.forEach function(file) {
 		  var element = document.createElement("script");
 		  element.src = file;
 		  document.body.appendChild(element);
