@@ -91,6 +91,7 @@ p {
 .actions {
   background-color: #245824;
   padding: 3% 0%;
+  height: 288px;
 }
 .video, .thermometer, .order, .twitter, .social, .statistics {
   text-align: center;
