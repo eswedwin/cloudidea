@@ -117,7 +117,7 @@
                 </div>
               </div>
               <div class="row-fluid">
-			    <div class="span10 offset1">
+                <div class="span10 offset1">
                   <span>  <!-- coinbase button -->
                     <!-- button class="btn-success btn-large">Preorder</button-->
                     <a class="coinbase-button" data-code="<%= coinbase_preorder_data_code %>" 
@@ -129,12 +129,12 @@
                     <p style="font-size:100%"></p>
                     <a class="addthis_button_tweet" tw:via="<%= twitter_username %>" tw:text="<%= twitter_tweet %>"></a>
                   </span>
-				</div>
+                </div>
               </div>
               <div class="row-fluid">
                 <div class="span10 offset2">  <!-- button --><!-- AddThis Button BEGIN -->
                   <div class="social">
-				    <div class="addthis_toolbox addthis_default_style addthis_32x32_style"> <!-- next size down = 16x16 -->
+                    <div class="addthis_toolbox addthis_default_style addthis_32x32_style"> <!-- next size down = 16x16 -->
                       <a class="addthis_button_preferred_1"></a>
                       <a class="addthis_button_preferred_2"></a>
                       <a class="addthis_button_compact"></a>
@@ -407,38 +407,37 @@
         </div>
       </div>
     </div>
-  <script type="text/javascript">
+    <script type="text/javascript">
+      // Add a script elements as a children of the body (from google deferred load of .js)
+      function downloadJSAtOnload() {
+        var load_files =[
+        "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js", // "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js",
+        "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js",
+        "https://coinbase.com/assets/button.js",
+        "https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520032ff4f50a44a",
+        "js/controllers.js", "js/angular.min.js"							// "js/google-analytics.js"
+        ];
 
-    // Add a script element as a child of the body
-    function downloadJSAtOnload() {
-      var load_files =[
-	  "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js", //"https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js",
-	  "https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js",
-	  "https://coinbase.com/assets/button.js",
-	  "https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520032ff4f50a44a",
-	  "js/controllers.js", "js/angular.min.js"							// "js/google-analytics.js"
-	  ];
-	  
-	  load_files.forEach( function(file) {
-		  var element = document.createElement("script");
-		  element.src = file;
-		  document.body.appendChild(element);
-	  });
-    }
+        load_files.forEach( function(file) {
+          var element = document.createElement("script");
+          element.src = file;
+          document.body.appendChild(element);
+        });
+      }
 
-     // Check for browser support of event handling capability
-    if (window.addEventListener)
-      window.addEventListener("load", downloadJSAtOnload, false);
-    else if (window.attachEvent)
-      window.attachEvent("onload", downloadJSAtOnload);
-    else window.onload = downloadJSAtOnload;
+      // Check for browser support of event handling capability (loaded)
+      if (window.addEventListener)
+        window.addEventListener("load", downloadJSAtOnload, false);
+      else if (window.attachEvent)
+        window.attachEvent("onload", downloadJSAtOnload);
+      else window.onload = downloadJSAtOnload;
 
-  </script>
-   <div ng-controller="OrdersCtrl">
-	<div ng-show="error" style = "visibility:hidden">
-	  <h6>{{error}}</h6>
-	</div>
-  </div>
+    </script>
+    <div ng-controller="OrdersCtrl">
+      <div ng-show="error" style = "visibility:hidden">
+        <h6>{{error}}</h6>
+      </div>
+    </div>
 
   </body>
 </html>
