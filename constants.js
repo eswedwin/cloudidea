@@ -32,7 +32,7 @@ var Constants = {
   PRODUCT_SHORT_DESCRIPTION: "Sell power back to the Power Companies at a profit.",
   TWITTER_USERNAME: "cloudpowergreen",
   TWITTER_TWEET: "This is real green power, looks interesting.",
-  COINBASE_PREORDER_DATA_CODE: "fc07ed9648f43c91d30b6390dbab3885?c=Green+Advert",
+  COINBASE_PREORDER_DATA_CODE: "fc07ed9648f43c91d30b6390dbab3885",
   days_left: function() {
       return Math.max(Math.ceil((this.FUNDING_END_DATE - new Date()) / (1000*60*60*24)), 0);
   }
