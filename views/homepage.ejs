@@ -435,11 +435,12 @@
       downloadJSAtOnload();
       */
     </script>
-    <!--div ng-controller="OrdersCtrl">
+    <!--force init of ordersCtrl,display variables after above deferred load (else angular error undefined)-->
+    <div ng-controller="OrdersCtrl">
       <div ng-show="error" style = "visibility:hidden">
         <h6>{{error}}</h6>
       </div>
-    </div-->
+    </div>
 
   </body>
 </html>
