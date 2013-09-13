@@ -20,11 +20,11 @@ function OrdersCtrl($http, $scope) {
       $scope.error = data.error;
     } else {
       $scope.num_orders = data.num_orders;
-      $scope.total_funded = data.total_funded.toFixed(2);
+      $scope.total_funded = data.total_funded.toFixed(1);
       $scope.unit_symbol = data.unit_symbol;
       $scope.target = data.target;
       $scope.days_left = data.days_left ? data.days_left : 0;
-      $scope.percentage_funded = Math.min($scope.total_funded / $scope.target * 100.0, 100);
+      $scope.percentage_funded = Math.max(1, Math.min($scope.total_funded / $scope.target * 100.0, 100));  // show min 1% max 100%
     }
   }).error(function(data, status, headers, config) {
     $scope.error = "Error fetching order statistics.";
